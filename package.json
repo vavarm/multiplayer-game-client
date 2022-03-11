@@ -18,5 +18,8 @@
   "homepage": "https://github.com/vavarm/multiplayer-game-client#readme",
   "dependencies": {
     "ws": "^8.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21"
   }
 }
