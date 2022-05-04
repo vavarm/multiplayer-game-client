@@ -16,6 +16,7 @@ connection.on("error", (error) => {
 connection.on("message", (data) => {
     var dataJSON = JSON.parse(data);
     console.log("Received: '", dataJSON.msg, "'");
+    BroadcastMessage(); // arbitrary placement of this method call
 });
 
 function CreateRoom(roomName, roomPwd) {
@@ -60,15 +61,3 @@ function BroadcastMessage() {
         connection.send(JSON.stringify(msg));
     }
 }
-
-// TODO - clean this method
-/*
-    function sendNumber() {
-        if (connection.readyState == WebSocket.OPEN) {
-            var number = Math.round(Math.random() * 0xffffff); //Oxffffff is the color applied to the variable
-            connection.send(number.toString());
-        }
-        setTimeout(sendNumber, 1000);
-    }
-    sendNumber();
-    */
