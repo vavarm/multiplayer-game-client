@@ -13,10 +13,10 @@ Refer to the "websocket-chat-server" repository (https://github.com/vavarm/webso
 # Includes
 
 npm modules:
-|Name            |Description                    |Link
-|----------------|-------------------------------|-------------------------------------------|
-|ws              |WebSocket Library              |https://www.npmjs.com/package/ws           |
-|readline-Sync   |Interactive readline console   |https://www.npmjs.com/package/readline-sync|
+|Name            |Description                     |Link                                       |
+|----------------|--------------------------------|-------------------------------------------|
+|ws              |WebSocket Library               |https://www.npmjs.com/package/ws           |
+|readline-Sync   |Interactive readline in terminal|https://www.npmjs.com/package/readline-sync|
 
 # Graph
 
