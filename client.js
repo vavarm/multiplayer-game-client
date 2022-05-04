@@ -6,7 +6,6 @@ const connection = new WebSocket("ws://localhost:8080/");
 connection.on("open", () => {
     console.log("WebSocket Client Connected");
     ChoiceEntry();
-    BroadcastMessage();
 });
 connection.on("close", () => {
     console.log("Connection lost");
@@ -51,16 +50,15 @@ function ChoiceEntry() {
     }
 }
 
+// Broadcast method
 function BroadcastMessage() {
     var str = readlineSync.question(
         "Broadcast the following message to all the clients of your room: "
     );
     if (connection.readyState == WebSocket.OPEN) {
-        console.log(str);
         var msg = { topic: "BcMsg", BcMsg: str };
         connection.send(JSON.stringify(msg));
     }
-    BroadcastMessage();
 }
 
 // TODO - clean this method
