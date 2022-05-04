@@ -1,15 +1,12 @@
 const WebSocket = require("ws");
-const readline = require("readline");
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
+const readlineSync = require("readline-sync");
 
 const connection = new WebSocket("ws://localhost:8080/");
 
 connection.on("open", () => {
     console.log("WebSocket Client Connected");
     ChoiceEntry();
+    BroadcastMessage();
 });
 connection.on("close", () => {
     console.log("Connection lost");
@@ -38,33 +35,42 @@ function JoinRoom(roomName, roomPwd) {
     }
 }
 
-// TODO - entry method to let the client choose between create or join a room
+// entry method to let the client choose between create or join a room
 function ChoiceEntry() {
-    rl.question(
-        "Choose between create (1) or join (2) a room ",
-        function(choice) {
-            rl.question("Room name: ", function(roomName) {
-                rl.question("Password: ", function(roomPwd) {
-                    if (choice == 1) {
-                        CreateRoom(roomName, roomPwd);
-                    } else if (choice == 2) {
-                        JoinRoom(roomName, roomPwd);
-                    } else {
-                        console.error("Invalid choice");
-                    }
-                });
-            });
-        }
+    var choice = readlineSync.question(
+        "Choose between create (1) or join (2) a room "
     );
+    var roomName = readlineSync.question("Room name: ");
+    var roomPwd = readlineSync.question("Password: ");
+    if (choice == 1) {
+        CreateRoom(roomName, roomPwd);
+    } else if (choice == 2) {
+        JoinRoom(roomName, roomPwd);
+    } else {
+        console.error("Invalid choice");
+    }
 }
+
+function BroadcastMessage() {
+    var str = readlineSync.question(
+        "Broadcast the following message to all the clients of your room: "
+    );
+    if (connection.readyState == WebSocket.OPEN) {
+        console.log(str);
+        var msg = { topic: "BcMsg", BcMsg: str };
+        connection.send(JSON.stringify(msg));
+    }
+    BroadcastMessage();
+}
+
 // TODO - clean this method
 /*
-function sendNumber() {
-    if (connection.readyState == WebSocket.OPEN) {
-        var number = Math.round(Math.random() * 0xffffff); //Oxffffff is the color applied to the variable
-        connection.send(number.toString());
+    function sendNumber() {
+        if (connection.readyState == WebSocket.OPEN) {
+            var number = Math.round(Math.random() * 0xffffff); //Oxffffff is the color applied to the variable
+            connection.send(number.toString());
+        }
+        setTimeout(sendNumber, 1000);
     }
-    setTimeout(sendNumber, 1000);
-}
-sendNumber();
-*/
+    sendNumber();
+    */
