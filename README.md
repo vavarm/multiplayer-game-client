@@ -5,6 +5,8 @@ A node.js software that communicates with a chat server using WebSockets.
 > **Note:** This program is a draft and will serve as a basis for more complete programs with graphical interfaces.
 It has been developed only to test the websocket server.
 
+> **Note:** This program does not work anymore with the server due to some operating changes on the server. Please refer to the following replacement program: https://github.com/vavarm/websocket-chat-client-page
+
 # Require
 
 A websocket chat server with a room system.
